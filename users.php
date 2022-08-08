@@ -3,7 +3,7 @@
     
     class Users {
         private static $table_name = "users";
-        protected static $db_fields = array('id', 'verify_string', 'name', 'email', 'timer', 'password', 'image', 'listed', 'refer_method', 'activation', 'autho_level', 'created', 'last_updated', 'confirmed_email');
+        protected static $db_fields = array('id', 'verify_string', 'name', 'email', 'timer', 'password', 'image', 'listed', 'refer_method', 'activation', 'autho_level', 'created', 'last_updated', 'confirmed_email', 'email_track');
         public $id; 
         public $verify_string;
         public $name;
@@ -18,6 +18,7 @@
         public $created;
         public $last_updated;
         public $confirmed_email;
+		public $email_track;
         
         public $errors = array();
         
@@ -48,6 +49,7 @@
                 if($this->save()){
                     if(empty($this->verify_string)){
                         $string = $this->id.$time;
+						$this->email_track = 0;
                         $this->verify_string = sha1($string);
                         $this->save();
                     }

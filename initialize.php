@@ -24,6 +24,7 @@
 	
 	//loading database-relayed objects
 	require_once(LIB_PATH.DS."mailings.php");
+	require_once(LIB_PATH.DS."emaillist.php");
 	require_once(LIB_PATH.DS."admins.php");
 	require_once(LIB_PATH.DS."activitylogs.php");
 	require_once(LIB_PATH.DS."users.php");
