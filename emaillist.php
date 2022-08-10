@@ -1,7 +1,7 @@
 <?php
     require_once(LIB_PATH.DS."database.php");
     
-    class Emaillist {
+    class EmailList {
         private static $table_name = "emaillist";
         protected static $db_fields = array('id', 'title', 'content', 'created');
 		public $id;
