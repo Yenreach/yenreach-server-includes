@@ -24,7 +24,6 @@
 	
 	//loading database-relayed objects
 	require_once(LIB_PATH.DS."mailings.php");
-	require_once(LIB_PATH.DS."emaillist.php");
 	require_once(LIB_PATH.DS."admins.php");
 	require_once(LIB_PATH.DS."activitylogs.php");
 	require_once(LIB_PATH.DS."users.php");
@@ -50,6 +49,7 @@
 	require_once(LIB_PATH.DS."businessweek.php");
 	require_once(LIB_PATH.DS."pagevisits.php");
 	require_once(LIB_PATH.DS."savedbusinesses.php");
+	require_once(LIB_PATH.DS."emaillist.php");
 	require_once(LIB_PATH.DS."usercookies.php");
 	require_once(LIB_PATH.DS."businessreviews.php");
 	require_once(LIB_PATH.DS."advertpaymenttypes.php");

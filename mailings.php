@@ -103,7 +103,7 @@
                         $mail->Subject = $this->subject;
                         $mail->Body    = $this->content;
                         $mail->AltBody = $this->alt_content;
-                        //print_r($mail);
+                        print_r($mail);
                         
                         $mail->send();
                         
