@@ -1,51 +1,56 @@
 <?php
     require_once(LIB_PATH.DS."database.php");
     
-    class EmailList {
-        private static $table_name = "emaillist";
-        protected static $db_fields = array('id', 'title', 'content', 'created');
-		public $id;
+    class BlogPost {
+        private static $table_name = "blogpost";
+        protected static $db_fields = array('id', 'blog_string', 'admin_string', 'title', 'author', 'post', 'created_at', 'updated_at');
+
+        public $id;
+        public $blog_string;
+        public $admin_string;
         public $title;
-		public $content;
-		public $created;
+        public $author;
+        public $post;
+        public $created_at;
+        public $updated_at;
         
         public $errors = array();
         
         private function check_errors(){
             if(empty($this->title)){
-                $this->errors[] = "Title must be provided";
+                $this->errors[] = "The Blog title must be provided";
             }
-            if(empty($this->content)){
-                $this->errors[] = "Content must be provided";
-            } else {
-				$id = !empty($this->id) ? (int)$this->id : 0;
-				$founds = self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE id='{$this->id}' AND id!={$id}");
-				if(!empty($founds)){
-					$this->errors[] = "Email is already in use by another Customer";
-				}
-			}
+            if(empty($this->author)){
+                $this->errors[] = "The Blog author must be provided";
+            }
+            if(empty($this->post)){
+                $this->errors[] = "The Blog post must be provided";
+            }
         }
         
         public function insert(){
             $this->check_errors();
             if(empty($this->errors)){
                 $time = time();
-                if(empty($this->created)){
-                    $this->created = $time;
+                if(empty($this->created_at)){
+                    $this->created_at = $time;
                 }
-                $this->last_updated = $time;
+                $this->updated_at = $time;
                 if($this->save()){
+                    if(empty($this->blog_string)){
+                        $string = $this->id.$time;
+                        $this->blog_string = sha1($string);
+                        $this->save();
+                    }
                     return true;
                 } else {
-                    $this->errors[] = "The Email was not saved";
+                    $this->errors[] = "The Blog was not saved";
                     return false;
                 }
             } else {
                 return false;
             }
         }
-        
-        
         
         // Common Database Methods
 		protected function attributes() {
@@ -97,15 +102,36 @@
 		}
 		
 		public static function find_all() {
-			return self::find_by_sql("SELECT * FROM ".self::$table_name." ORDER BY name");
+			return self::find_by_sql("SELECT * FROM ".self::$table_name);
 		}
 		
-		public static function find_by_id($id=0) {
+		public static function find_by_author($string){
+		    return self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE author='{$string}'");
+		}
+		
+		public static function find_by_title($string){
+		    return self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE title='{$string}' ORDER BY created ASC");
+		}
+
+        public static function find_by_admin_string($string="") {
+            global $database;
+            $result_array = self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE admin_string='{$string}' LIMIT 1");
+            return !empty($result_array) ? array_shift($result_array) : false;
+        }
+
+		public static function find_by_blog_string($string="") {
 			global $database;
-			$result_array = self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE id={$id} LIMIT 1");
+			$result_array = self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE blog_string='{$string}' LIMIT 1");
 			return !empty($result_array) ? array_shift($result_array) : false;
 		}
 		
+		public static function count_all() {
+			global $database;
+			$sql = "SELECT COUNT(*) FROM ".self::$table_name;
+			$result_set = $database->query($sql);
+			$row = $database->fetch_array($result_set);
+			return array_shift($row);
+		}
 		
 		public function create() {
 			global $database;
