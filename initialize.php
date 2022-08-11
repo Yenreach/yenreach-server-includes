@@ -5,9 +5,9 @@
 	
 	defined('DS') ? null : define('DS', DIRECTORY_SEPARATOR);
 
-	defined('SITE_ROOT') ? null : define('SITE_ROOT', $_SERVER['DOCUMENT_ROOT']);
+	// defined('SITE_ROOT') ? null : define('SITE_ROOT', $_SERVER['DOCUMENT_ROOT']);
 	
-	// defined('SITE_ROOT') ? null : define('SITE_ROOT', '/home'.DS.'omotropn');
+	defined('SITE_ROOT') ? null : define('SITE_ROOT', '/home'.DS.'omotropn');
 	
 	defined('HTML_ROOT') ? null : define('HTML_ROOT', SITE_ROOT.DS.'yenreach');
 		
