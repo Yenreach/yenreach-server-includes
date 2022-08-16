@@ -114,7 +114,7 @@
 
 		public static function find_by_blog_string($string="") {
 			global $database;
-			$result_array = self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE blog_string='{$string}' LIMIT 1");
+			$result_array = self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE blog_string='{$string}'");
 			return !empty($result_array) ? $result_array : false;
 		}
 
