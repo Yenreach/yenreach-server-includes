@@ -32,6 +32,7 @@
 	require_once(LIB_PATH.DS."categories.php");
 	require_once(LIB_PATH.DS."states.php");
 	require_once(LIB_PATH.DS."blogpost.php");
+	require_once(LIB_PATH.DS."comments.php");
 	require_once(LIB_PATH.DS."localgovernments.php");
 	require_once(LIB_PATH.DS."businesses.php");
 	require_once(LIB_PATH.DS."businesscategories.php");
