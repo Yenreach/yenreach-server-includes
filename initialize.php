@@ -5,9 +5,9 @@
 	
 	defined('DS') ? null : define('DS', DIRECTORY_SEPARATOR);
 
-	// defined('SITE_ROOT') ? null : define('SITE_ROOT', $_SERVER['DOCUMENT_ROOT']);
+	defined('SITE_ROOT') ? null : define('SITE_ROOT', $_SERVER['DOCUMENT_ROOT']);
 	
-	defined('SITE_ROOT') ? null : define('SITE_ROOT', '/home'.DS.'omotropn');
+	// defined('SITE_ROOT') ? null : define('SITE_ROOT', '/home'.DS.'omotropn');
 	
 	defined('HTML_ROOT') ? null : define('HTML_ROOT', SITE_ROOT.DS.'yenreach');
 		
@@ -32,6 +32,7 @@
 	require_once(LIB_PATH.DS."categories.php");
 	require_once(LIB_PATH.DS."states.php");
 	require_once(LIB_PATH.DS."blogpost.php");
+	require_once(LIB_PATH.DS."comments.php");
 	require_once(LIB_PATH.DS."localgovernments.php");
 	require_once(LIB_PATH.DS."businesses.php");
 	require_once(LIB_PATH.DS."businesscategories.php");
