@@ -15,7 +15,7 @@
 	
 	//loading config file first	
 	require_once(LIB_PATH.DS."config.php");
-	
+		
 	//loading basic functions next so that everything after can use them
 	require_once(LIB_PATH.DS."functions.php");
 	

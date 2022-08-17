@@ -3,13 +3,14 @@
     
     class BlogPost {
         private static $table_name = "blogpost";
-        protected static $db_fields = array('id', 'blog_string', 'admin_string', 'title', 'author', 'post', 'created_at', 'updated_at');
+        protected static $db_fields = array('id', 'blog_string', 'admin_string', 'title', 'author', 'snippet', 'post', 'created_at', 'updated_at');
 
         public $id;
         public $blog_string;
         public $admin_string;
         public $title;
         public $author;
+		public $snippet;
         public $post;
         public $created_at;
         public $updated_at;
