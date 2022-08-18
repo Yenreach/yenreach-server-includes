@@ -3,10 +3,11 @@
     
     class EmailList {
         private static $table_name = "emaillist";
-        protected static $db_fields = array('id', 'title', 'content', 'created');
+        protected static $db_fields = array('id', 'admin_string', 'title', 'content', 'created');
 		public $id;
+		public $admin_string;
         public $title;
-		public $content;
+		public $content;	
 		public $created;
         
         public $errors = array();
