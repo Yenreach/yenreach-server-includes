@@ -49,7 +49,7 @@
                 if($this->save()){
                     if(empty($this->verify_string)){
                         $string = $this->id.$time;
-						$this->email_track = 0;
+						$this->email_track = 1;
                         $this->verify_string = sha1($string);
                         $this->save();
                     }
