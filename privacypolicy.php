@@ -1,28 +1,28 @@
 <?php
     require_once(LIB_PATH.DS."database.php");
     
-    class BusinessPhotos {
-        private static $table_name = "businessphotos";
-        protected static $db_fields = array('id', 'verify_string', 'user_string', 'business_string', 'filename', 'filepath', 'size', 'created', 'last_updated');
-        public $id;
-        public $verify_string;
-        public $user_string;
-        public $business_string;
-        public $filename;
-        public $filepath;
-        public $size;
-        public $created;
-        public $last_updated;
+    class PrivacyPolicy {
+        private static $table_name = "privacypolicy";
+		protected static $db_fields = array('id', 'admin_string', 'content', 'created_at', 'updated_at');
+		public $id;
+		public $admin_string;
+		public $content;	
+		public $created_at;
+		public $updated_at;
+        
         
         public $errors = array();
         
         private function check_errors(){
-            if(empty($this->user_string)){
-                $this->errors[] = 'User must be stated';
-            }
-            if(empty($this->business_string)){
-                $this->errors[] = 'Business must be provided';
-            }
+            if(empty($this->content)){
+                $this->errors[] = "Content must be provided";
+            } else {
+				$id = !empty($this->id) ? (int)$this->id : 0;
+				$founds = self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE id='{$this->id}' AND id!={$id}");
+				if(!empty($founds)){
+					$this->errors[] = "Policy is already in use by another Customer";
+				}
+			}
         }
         
         public function insert(){
@@ -34,25 +34,17 @@
                 }
                 $this->last_updated = $time;
                 if($this->save()){
-                    if(empty($this->verify_string)){
-                        $string = $this->id.$time;
-                        $this->verify_string = sha1($string);
-                        $this->save();
-                    }
-                    if(empty($this->filename)){
-                        $this->filename = "PHOTO_".$this->id.$time;
-                        $this->filepath = "images".DS.$this->filename.".jpg";
-                        $this->save();
-                    }
                     return true;
                 } else {
-                    $this->errors[] = "The Image details were not saved into the database";
+                    $this->errors[] = "The Policy was not saved";
                     return false;
                 }
             } else {
                 return false;
             }
         }
+        
+        
         
         // Common Database Methods
 		protected function attributes() {
@@ -87,7 +79,7 @@
 			
 			foreach($record as $attribute=>$value) {
 				if($object->has_attribute($attribute)) {
-					$object->$attribute = $value;
+					$object->$attribute = html_entity_decode($value);
 				}
 			}
 			return $object;
@@ -104,19 +96,7 @@
 		}
 		
 		public static function find_all() {
-			return self::find_by_sql("SELECT * FROM ".self::$table_name);
-		}
-		
-		public static function find_by_user_string($string){
-		    return self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE user_string='{$string}' ORDER BY created");
-		}
-		
-		public static function find_by_business_string($string){
-		    return self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE business_string='{$string}' ORDER BY created ASC");
-		}
-		
-		public static function find_by_business_limit($string, $limit){
-		    return self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE business_string='{$string}' ORDER BY created ASC LIMIT {$limit}");
+			return self::find_by_sql("SELECT * FROM ".self::$table_name." ORDER BY id");
 		}
 		
 		public static function find_by_id($id=0) {
@@ -124,26 +104,7 @@
 			$result_array = self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE id={$id} LIMIT 1");
 			return !empty($result_array) ? array_shift($result_array) : false;
 		}
-
-		public static function delete_filepath($id=0) {
-			global $database;
-			$database->query("UPDATE ".self::$table_name." SET filepath = '' WHERE id={$id}");
-			// return !empty($result_array) ? array_shift($result_array) : false;
-		}
 		
-		public static function find_by_verify_string($string="") {
-			global $database;
-			$result_array = self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE verify_string='{$string}' LIMIT 1");
-			return !empty($result_array) ? array_shift($result_array) : false;
-		}
-		
-		public static function count_all() {
-			global $database;
-			$sql = "SELECT COUNT(*) FROM ".self::$table_name;
-			$result_set = $database->query($sql);
-			$row = $database->fetch_array($result_set);
-			return array_shift($row);
-		}
 		
 		public function create() {
 			global $database;

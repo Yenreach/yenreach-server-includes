@@ -30,6 +30,8 @@
 	require_once(LIB_PATH.DS."cardtokens.php");
 	require_once(LIB_PATH.DS."sections.php");
 	require_once(LIB_PATH.DS."categories.php");
+	require_once(LIB_PATH.DS."terms.php");
+	require_once(LIB_PATH.DS."privacypolicy.php");
 	require_once(LIB_PATH.DS."states.php");
 	require_once(LIB_PATH.DS."blogpost.php");
 	require_once(LIB_PATH.DS."comments.php");
