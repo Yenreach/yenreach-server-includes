@@ -3,7 +3,7 @@
     
     class BlogPost {
         private static $table_name = "blogpost";
-        protected static $db_fields = array('id', 'blog_string', 'admin_string', 'title', 'author', 'snippet', 'post', 'created_at', 'updated_at');
+        protected static $db_fields = array('id', 'blog_string', 'admin_string', 'title', 'author', 'snippet', 'post', 'file_path', 'created_at', 'updated_at');
 
         public $id;
         public $blog_string;
@@ -12,6 +12,7 @@
         public $author;
 		public $snippet;
         public $post;
+		public $file_path;
         public $created_at;
         public $updated_at;
         
@@ -86,7 +87,7 @@
 			
 			foreach($record as $attribute=>$value) {
 				if($object->has_attribute($attribute)) {
-					$object->$attribute = $value;
+					$object->$attribute = html_entity_decode($value);
 				}
 			}
 			return $object;
