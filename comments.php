@@ -82,7 +82,7 @@
 			
 			foreach($record as $attribute=>$value) {
 				if($object->has_attribute($attribute)) {
-					$object->$attribute = $value;
+					$object->$attribute = formatString(html_entity_decode($value));
 				}
 			}
 			return $object;
