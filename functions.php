@@ -16,6 +16,12 @@
 			exit;
 		}
 	}
+
+	function formatString($str) {
+        $pattern1 = "/&nbsp;/i";
+        $str = preg_replace($pattern1, " ", $str);
+        return $str;
+ 	};
 	
 	function include_layout_template($template="") {
 		include(HTML_ROOT.DS.'layouts'.DS.$template);
