@@ -18,8 +18,26 @@
 	}
 
 	function formatString($str) {
-        $pattern1 = "/&nbsp;/i";
+        $pattern1 = "/nbsp;/i";
+		$pattern2 = "/#039;/i";
+		$pattern3 = "/amp;/i";
+		$pattern4 = "/&/i";
+		$pattern5 = "/rsquo;/i";
+
+		// $pattern3 = "/;nbsp;/i";
+        // $pattern4 = "/&/i";
+        // $pattern5 = "/amp;/i";
+        // $pattern6 = "/#039;/i";
+
+		
+		
         $str = preg_replace($pattern1, " ", $str);
+		$str = preg_replace($pattern2, "", $str);	
+		
+		$str = preg_replace($pattern4, "", $str);
+		$str = preg_replace($pattern3, " ", $str);
+		$str = preg_replace($pattern5, "'", $str);
+		
         return $str;
  	};
 	
