@@ -35,6 +35,7 @@
 	require_once(LIB_PATH.DS."productcategorylist.php");
 	require_once(LIB_PATH.DS."categories.php");
 	require_once(LIB_PATH.DS."terms.php");
+	require_once(LIB_PATH.DS."bulksms.php");
 	require_once(LIB_PATH.DS."feedback.php");
 	require_once(LIB_PATH.DS."privacypolicy.php");
 	require_once(LIB_PATH.DS."states.php");
