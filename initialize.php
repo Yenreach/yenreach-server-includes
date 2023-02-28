@@ -7,7 +7,7 @@
 
 	// defined('SITE_ROOT') ? null : define('SITE_ROOT', $_SERVER['DOCUMENT_ROOT']);
 	
-	defined('SITE_ROOT') ? null : define('SITE_ROOT', '/home'.DS.'omotropn');
+	defined('SITE_ROOT') ? null : define('SITE_ROOT', '/home'.DS.'cfciruxn');
 	
 	defined('HTML_ROOT') ? null : define('HTML_ROOT', SITE_ROOT.DS.'yenreach');
 		
@@ -35,7 +35,6 @@
 	require_once(LIB_PATH.DS."productcategorylist.php");
 	require_once(LIB_PATH.DS."categories.php");
 	require_once(LIB_PATH.DS."terms.php");
-	require_once(LIB_PATH.DS."bulksms.php");
 	require_once(LIB_PATH.DS."feedback.php");
 	require_once(LIB_PATH.DS."privacypolicy.php");
 	require_once(LIB_PATH.DS."states.php");
