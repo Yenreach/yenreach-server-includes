@@ -3,7 +3,7 @@
     
     class Businesses {
         private static $table_name = "businesses";
-        protected static $db_fields = array('id', 'verify_string', 'name', 'description', 'user_string', 'subscription_string', 'category', 'facilities', 'address', 'town', 'lga', 'state', 'state_id', 'phonenumber', 'whatsapp', 'email', 'website', 'facebook_link', 'twitter_link', 'instagram_link', 'youtube_link', 'linkedin_link', 'working_hours', 'cv', 'modifiedby', 'experience', 'month_started', 'year_started', 'reg_stage', 'activation', 'filename', 'remarks', 'created', 'last_updated');
+        protected static $db_fields = array('id', 'verify_string', 'name', 'description', 'user_string', 'subscription_string', 'category', 'facilities', 'address', 'town', 'lga', 'state', 'profile_img', 'cover_img', 'state_id', 'phonenumber', 'whatsapp', 'email', 'website', 'facebook_link', 'twitter_link', 'instagram_link', 'youtube_link', 'linkedin_link', 'working_hours', 'cv', 'modifiedby', 'experience', 'month_started', 'year_started', 'reg_stage', 'activation', 'filename', 'remarks', 'created', 'last_updated');
         public $id;
         public $verify_string;
         public $name;
@@ -33,6 +33,8 @@
         public $month_started;
         public $year_started;
         public $reg_stage;
+		public $profile_img;
+		public $cover_img;
         public $activation;
         public $filename;
         public $remarks;
