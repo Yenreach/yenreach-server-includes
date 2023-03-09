@@ -3,7 +3,7 @@
     
     class Products {
         private static $table_name = "products";
-        protected static $db_fields = array('id', 'business_string', 'product_string', 'product_name', 'product_description', 'product_quantity', 'product_price', 'product_color', 'product_safety_tip', 'created_at', 'updated_at');
+        protected static $db_fields = array('id', 'business_string', 'product_string', 'product_name', 'product_description', 'product_quantity', 'product_status', 'product_price', 'product_color', 'product_safety_tip', 'created_at', 'updated_at');
         public $id;
         public $business_string;
         public $product_string;
@@ -12,6 +12,7 @@
         public $product_quantity;
         public $product_price;
         public $product_color;
+		public $product_status;
         public $product_safety_tip;
         public $created_at;
         public $updated_at;
