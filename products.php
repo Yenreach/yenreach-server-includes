@@ -22,6 +22,9 @@
             if(empty($this->product_name)){
                 $this->errors[] = "Product Name must be provided";
             } 
+			if(empty($this->business_string)){
+				$this->errors[] = "business string must be provided";
+			}
             if(empty($this->product_description)){
                 $this->errors[] = "product description has to be provided";
             }

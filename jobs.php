@@ -1,22 +1,35 @@
 <?php
     require_once(LIB_PATH.DS."database.php");
     
-    class ProductPhotos {
-        private static $table_name = "productphotos";
-        protected static $db_fields = array('id', 'photo_string', 'product_string', 'filename', 'created_at', 'updated_at');
+    class Jobs {
+        private static $table_name = "jobs";
+        protected static $db_fields = array('id', 'business_string', 'company_name', 'job_string', 'job_title', 'job_type', 'location', 'salary', 'job_overview', 'job_benefit', 'status', 'created_at', 'updated_at');
         public $id;
-        public $photo_string;
-        public $product_string;
-        public $filename;
+        public $business_string;
+        public $job_string;
+        public $job_title;
+		public $company_name;
+        public $job_type;
+        public $location;
+        public $salary;
+        public $job_overview;
+        public $job_benefit;
+		public $status;
         public $created_at;
         public $updated_at;
         
         public $errors = array();
         
         private function check_errors(){
-            if(empty($this->product_string)){
-                $this->errors[] = 'product must be provided';
+            if(empty($this->job_title)){
+                $this->errors[] = "job title must be provided";
+            } 
+            if(empty($this->job_type)){
+                $this->errors[] = "job type has to be provided";
             }
+			if(empty($this->business_string)){
+				$this->errors[] = "business string must be provided";
+			}
         }
         
         public function insert(){
@@ -28,18 +41,18 @@
                 }
                 $this->updated_at = $time;
                 if($this->save()){
-                    if(empty($this->photo_string)){
+                    if(empty($this->job_string)){
                         $string = $this->id.$time;
-                        $this->photo_string = sha1($string);
+                        $this->job_string = sha1($string);
                         $this->save();
                     }
-                    if(empty($this->filename)){
-                        $this->filename = "PRODUCT_PHOTO_".$this->id.$time;
-                        $this->save();
-                    }
+                    // if(empty($this->filename)){
+                    //     $this->filename = "LOGO_".$this->id.$time;
+                    //     $this->save();
+                    // }
                     return true;
                 } else {
-                    $this->errors[] = "The Image details were not saved into the database";
+                    $this->errors[] = "Job details was not saved";
                     return false;
                 }
             } else {
@@ -80,7 +93,7 @@
 			
 			foreach($record as $attribute=>$value) {
 				if($object->has_attribute($attribute)) {
-					$object->$attribute = $value;
+					$object->$attribute = formatString(html_entity_decode($value));
 				}
 			}
 			return $object;
@@ -99,15 +112,15 @@
 		public static function find_all() {
 			return self::find_by_sql("SELECT * FROM ".self::$table_name);
 		}
+		
+		public static function find_by_user($user){
+		    return self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE user='{$user}' AND activation=1 ORDER BY datecreated");
+		}
+		
+		public static function find_by_business_string($string){
+		    return self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE business_string='{$string}'");
+		}
 
-		public static function find_by_product_string($string){
-		    return self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE product_string='{$string}' ORDER BY created_at ASC");
-		}
-		
-		public static function find_by_product_limit($string, $limit){
-		    return self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE product_string='{$string}' ORDER BY created_at ASC LIMIT {$limit}");
-		}
-		
 		public static function find_by_id($id=0) {
 			global $database;
 			$result_array = self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE id={$id} LIMIT 1");
@@ -116,13 +129,15 @@
 
 		public static function delete_filepath($id=0) {
 			global $database;
-			$database->query("UPDATE ".self::$table_name." SET filepath = '' WHERE id={$id}");
-			// return !empty($result_array) ? array_shift($result_array) : false;
+			$result_array = self::find_by_sql("UPDATE ".self::$table_name." SET filepath = '' WHERE id={$id}");
+			return !empty($result_array) ? array_shift($result_array) : false;
 		}
+
+		// UPDATE `businessphotos` SET `filepath` = '' WHERE `businessphotos`.`id` = 25
 		
-		public static function find_by_photo_string($string="") {
+		public static function find_by_job_string($string="") {
 			global $database;
-			$result_array = self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE photo_string='{$string}' LIMIT 1");
+			$result_array = self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE job_string='{$string}' LIMIT 1");
 			return !empty($result_array) ? array_shift($result_array) : false;
 		}
 		
