@@ -124,6 +124,14 @@
 		public static function find_by_business_string($string){
 		    return self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE business_string='{$string}' ORDER BY created DESC");
 		}
+
+		public static function count_by_business_string($string){
+			global $database;
+			$sql = "SELECT COUNT(*) FROM ".self::$table_name." WHERE business_string='{$string}'";
+			$result_set = $database->query($sql);
+			$row = $database->fetch_array($result_set);
+			return array_shift($row);
+		}
 		
 		public static function find_business_day_visit($business, $day, $month, $year){
 		    return self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE business_string='{$business}' AND day='{$day}' AND month='{$month}' AND year='{$year}' ORDER BY created DESC");
