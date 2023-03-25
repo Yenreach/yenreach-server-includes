@@ -3,12 +3,11 @@
     
     class Users {
         private static $table_name = "users";
-        protected static $db_fields = array('id', 'verify_string', 'name','document', 'email', 'timer', 'password', 'image', 'listed', 'refer_method', 'activation', 'autho_level', 'created', 'last_updated', 'confirmed_email', 'email_track', 'cv');
+        protected static $db_fields = array('id', 'verify_string', 'name', 'email', 'timer', 'password', 'image', 'listed', 'refer_method', 'activation', 'autho_level', 'created', 'last_updated', 'confirmed_email', 'email_track', 'cv');
         public $id; 
         public $verify_string;
         public $name;
         public $email;
-		public $document;
         public $timer; 
         public $password;
         public $image;
