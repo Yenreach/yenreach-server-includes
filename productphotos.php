@@ -33,10 +33,7 @@
                         $this->photo_string = sha1($string);
                         $this->save();
                     }
-                    if(empty($this->filename)){
-                        $this->filename = "PRODUCT_PHOTO_".$this->id.$time;
-                        $this->save();
-                    }
+                    
                     return true;
                 } else {
                     $this->errors[] = "The Image details were not saved into the database";
