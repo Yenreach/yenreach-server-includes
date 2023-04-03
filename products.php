@@ -45,10 +45,6 @@
                         $this->product_string = sha1($string);
                         $this->save();
                     }
-                    if(empty($this->filename)){
-                        $this->filename = "LOGO_".$this->id.$time;
-                        $this->save();
-                    }
 					if(empty($this->product_status)){
 						$this->product_status = true;
 						$this->save();

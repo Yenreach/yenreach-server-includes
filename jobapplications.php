@@ -3,7 +3,7 @@
     
     class JobApplications {
         private static $table_name = "jobapplications";
-        protected static $db_fields = array('id', 'job_string', 'user_string', 'email', 'application_string', 'full_name', 'phone', 'status', 'created_at', 'updated_at');
+        protected static $db_fields = array('id', 'job_string', 'user_string', 'email', 'application_string', 'full_name', 'document', 'phone', 'status', 'created_at', 'updated_at');
         public $id;
         public $job_string;
         public $user_string;
