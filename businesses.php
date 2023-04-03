@@ -75,10 +75,7 @@
                         $this->verify_string = sha1($string);
                         $this->save();
                     }
-                    if(empty($this->filename)){
-                        $this->filename = "LOGO_".$this->id.$time;
-                        $this->save();
-                    }
+
                     return true;
                 } else {
                     $this->errors[] = "Business details was not saved";
