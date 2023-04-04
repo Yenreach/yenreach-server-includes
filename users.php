@@ -3,7 +3,7 @@
     
     class Users {
         private static $table_name = "users";
-        protected static $db_fields = array('id', 'verify_string', 'name', 'email', 'timer', 'password', 'image', 'listed', 'refer_method', 'activation', 'autho_level', 'created', 'last_updated', 'confirmed_email', 'email_track', 'cv');
+        protected static $db_fields = array('id', 'verify_string', 'name', 'email', 'timer', 'password', 'image', 'listed', 'refer_method', 'activation', 'autho_level', 'created', 'last_updated', 'confirmed_email', 'email_track', 'cv', 'gender', 'dob', 'phone');
         public $id; 
         public $verify_string;
         public $name;
@@ -20,6 +20,10 @@
         public $confirmed_email;
 		public $email_track;
 		public $cv;
+		public $dob;
+		public $phone;
+		public $gender;
+		
         
         public $errors = array();
         
