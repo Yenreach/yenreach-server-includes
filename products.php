@@ -45,10 +45,6 @@
                         $this->product_string = sha1($string);
                         $this->save();
                     }
-					if(empty($this->product_status)){
-						$this->product_status = true;
-						$this->save();
-					}
                     return true;
                 } else {
                     $this->errors[] = "Business details was not saved";
