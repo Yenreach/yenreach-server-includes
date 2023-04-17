@@ -138,6 +138,10 @@
 		public static function find_all() {
 			return self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE activation=1");
 		}
+
+		// public static function count_all() {
+		// 	return self::find_by_sql("SELECT COUNT(name) FROM ".self::$table_name);
+		// }
 		
 		public static function find_by_user($user){
 		    return self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE user='{$user}' AND activation=1 ORDER BY datecreated");

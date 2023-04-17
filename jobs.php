@@ -3,10 +3,11 @@
     
     class Jobs {
         private static $table_name = "jobs";
-        protected static $db_fields = array('id', 'business_string', 'company_name', 'job_string', 'job_title', 'job_type', 'location', 'salary', 'job_overview', 'job_benefit', 'status', 'created_at', 'updated_at');
+        protected static $db_fields = array('id', 'business_string', 'admin_string', 'company_name', 'job_string', 'job_link', 'admin_job', 'job_title', 'job_type', 'location', 'salary', 'job_overview', 'job_benefit', 'status', 'created_at', 'updated_at');
         public $id;
         public $business_string;
         public $job_string;
+		public $admin_string;
         public $job_title;
 		public $company_name;
         public $job_type;
@@ -15,6 +16,8 @@
         public $job_overview;
         public $job_benefit;
 		public $status;
+		public $job_link;
+		public $admin_job;
         public $created_at;
         public $updated_at;
         
@@ -27,8 +30,8 @@
             if(empty($this->job_type)){
                 $this->errors[] = "job type has to be provided";
             }
-			if(empty($this->business_string)){
-				$this->errors[] = "business string must be provided";
+			if(empty($this->business_string) && empty($this->admin_string)){
+				$this->errors[] = "business or admin string must be provided";
 			}
         }
         
@@ -111,6 +114,10 @@
 		
 		public static function find_all() {
 			return self::find_by_sql("SELECT * FROM ".self::$table_name);
+		}
+
+		public static function find_active_jobs(){
+		    return self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE status=1 ORDER BY created_at ASC");
 		}
 		
 		public static function find_by_user($user){

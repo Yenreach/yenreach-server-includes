@@ -107,6 +107,10 @@
 		public static function find_all() {
 			return self::find_by_sql("SELECT * FROM ".self::$table_name);
 		}
+
+		public static function find_active_products(){
+		    return self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE product_status=1 ORDER BY created_at ASC");
+		}
 		
 		public static function find_by_user($user){
 		    return self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE user='{$user}' AND activation=1 ORDER BY datecreated");
