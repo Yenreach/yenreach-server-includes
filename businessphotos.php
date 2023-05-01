@@ -39,11 +39,6 @@
                         $this->verify_string = sha1($string);
                         $this->save();
                     }
-                    if(empty($this->filename)){
-                        $this->filename = "PHOTO_".$this->id.$time;
-                        $this->filepath = "images".DS.$this->filename.".jpg";
-                        $this->save();
-                    }
                     return true;
                 } else {
                     $this->errors[] = "The Image details were not saved into the database";
