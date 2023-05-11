@@ -3,7 +3,7 @@
     
     class Jobs {
         private static $table_name = "jobs";
-        protected static $db_fields = array('id', 'business_string', 'admin_string', 'company_name', 'job_string', 'job_link', 'admin_job', 'job_title', 'job_type', 'location', 'salary', 'job_overview', 'job_benefit', 'status', 'created_at', 'updated_at');
+        protected static $db_fields = array('id', 'business_string', 'expiry_date', 'admin_string', 'company_name', 'job_string', 'job_link', 'admin_job', 'job_title', 'job_type', 'location', 'salary', 'job_overview', 'job_benefit', 'status', 'created_at', 'updated_at');
         public $id;
         public $business_string;
         public $job_string;
@@ -17,6 +17,7 @@
         public $job_benefit;
 		public $status;
 		public $job_link;
+		public $expiry_date;
 		public $admin_job;
         public $created_at;
         public $updated_at;
