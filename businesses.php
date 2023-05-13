@@ -185,7 +185,7 @@
 		
 		public static function count_all() {
 			global $database;
-			$sql = "SELECT COUNT(*) FROM ".self::$table_name;
+			$sql = "SELECT COUNT(*) FROM ".self::$table_name." WHERE activation=1";
 			$result_set = $database->query($sql);
 			$row = $database->fetch_array($result_set);
 			return array_shift($row);
