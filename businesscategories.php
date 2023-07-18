@@ -111,6 +111,17 @@
 		public static function find_by_category_string($string){
 		    return self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE category_string='{$string}'");
 		}
+
+		public static function find_by_category_string_paginated($string, $per_page=0, $offset=0){
+		    $sql = "SELECT * FROM ".self::$table_name." WHERE category_string='{$string}'";
+		    if($per_page > 0){
+		        $sql .= " LIMIT {$per_page}";
+		        if($offset > 0){
+		            $sql .= " OFFSET {$offset}";
+		        }
+		    }
+		    return self::find_by_sql($sql);
+		}
 		
 		public static function find_by_section_string($string){
 		    return self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE section_string='{$string}'");

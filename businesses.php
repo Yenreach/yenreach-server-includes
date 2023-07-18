@@ -150,6 +150,15 @@
 		public static function find_by_user_string($string){
 		    return self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE user_string='{$string}' AND activation=1 ORDER BY name");
 		}
+
+		public static function find_by_user_string_paginated($string, $per_page=20, $offset=0) {
+			global $database;
+			$sql = "SELECT * FROM ".self::$table_name." WHERE user_string='{$string}' AND activation=1 ORDER BY name ASC";
+			$sql .= "LIMIT {$per_page} ";
+			$sql .= "OFFSET {$offset}";
+			$result_array = self::find_by_sql($sql);
+			return !empty($result_array) ? $result_array : false;
+		}
 		
 		public static function find_pending_businesses(){
 		    return self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE reg_stage=3 AND activation=1 ORDER BY created ASC");
@@ -190,6 +199,15 @@
 			global $database;
 			$result_array = self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE verify_string='{$string}' LIMIT 1");
 			return !empty($result_array) ? array_shift($result_array) : false;
+		}
+
+		public static function find_by_verify_string_paginated($string="", $per_page=20, $offset=0) {
+			global $database;
+			$sql = "SELECT * FROM ".self::$table_name." WHERE verify_string='{$string}' ";
+			$sql .= "LIMIT {$per_page} ";
+			$sql .= "OFFSET {$offset}";
+			$result_array = self::find_by_sql($sql);
+			return !empty($result_array) ? $result_array : false;
 		}
 		
 		public static function count_all() {
