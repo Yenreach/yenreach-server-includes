@@ -147,13 +147,13 @@
 		    return self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE user='{$user}' AND activation=1 ORDER BY datecreated");
 		}
 		
-		public static function find_by_user_string($string){
+		public static function find_by_user_string($string, $per_page=20, $offset=0){
 		    return self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE user_string='{$string}' AND activation=1 ORDER BY name");
 		}
 
 		public static function find_by_user_string_paginated($string, $per_page=20, $offset=0) {
 			global $database;
-			$sql = "SELECT * FROM ".self::$table_name." WHERE user_string='{$string}' AND activation=1 ORDER BY name ASC";
+			$sql = "SELECT * FROM ".self::$table_name." WHERE user_string='{$string}' AND activation=1 ORDER BY name ASC ";
 			$sql .= "LIMIT {$per_page} ";
 			$sql .= "OFFSET {$offset}";
 			$result_array = self::find_by_sql($sql);
