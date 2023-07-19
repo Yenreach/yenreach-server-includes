@@ -113,12 +113,24 @@
 			return $object_array;
 		}
 		
-		public static function find_all() {
-			return self::find_by_sql("SELECT * FROM ".self::$table_name);
+		public static function find_all($per_page=0, $offset=0) {
+			global $database;
+			$sql = "SELECT * FROM ".self::$table_name." ORDER BY created_at ASC ";
+			if($per_page!=0){
+			    $sql .= "LIMIT {$per_page} ";
+			    $sql .= "OFFSET {$offset}";
+			}
+			return self::find_by_sql($sql);
 		}
 
-		public static function find_active_jobs(){
-		    return self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE status=1 ORDER BY created_at ASC");
+		public static function find_active_jobs($per_page=0, $offset=0) {
+			global $database;
+			$sql = "SELECT * FROM ".self::$table_name." WHERE status=1 ORDER BY created_at ASC ";
+			if($per_page!=0){
+			    $sql .= "LIMIT {$per_page} ";
+			    $sql .= "OFFSET {$offset}";
+			}
+			return self::find_by_sql($sql);
 		}
 		
 		public static function find_by_user($user){
@@ -152,6 +164,14 @@
 		public static function count_all() {
 			global $database;
 			$sql = "SELECT COUNT(*) FROM ".self::$table_name;
+			$result_set = $database->query($sql);
+			$row = $database->fetch_array($result_set);
+			return array_shift($row);
+		}
+
+		public static function count_active_jobs() {
+			global $database;
+			$sql = "SELECT COUNT(*) FROM ".self::$table_name." WHERE status=1";
 			$result_set = $database->query($sql);
 			$row = $database->fetch_array($result_set);
 			return array_shift($row);

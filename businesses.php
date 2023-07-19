@@ -209,6 +209,14 @@
 			$result_array = self::find_by_sql($sql);
 			return !empty($result_array) ? $result_array : false;
 		}
+
+		public static function count_approved_businesses() {
+			global $database;
+			$sql = "SELECT COUNT(*) FROM ".self::$table_name." WHERE reg_stage=4 AND activation=1";
+			$result_set = $database->query($sql);
+			$row = $database->fetch_array($result_set);
+			return array_shift($row);
+		}
 		
 		public static function count_all() {
 			global $database;
