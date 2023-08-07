@@ -105,6 +105,19 @@
 		public static function find_all() {
 			return self::find_by_sql("SELECT * FROM ".self::$table_name." ORDER BY category ASC");
 		}
+
+		public static function find($per_page = null, $offset = 0, $sort="") {
+			if($sort != ""){	
+				$sql = "SELECT * FROM ".self::$table_name." WHERE category LIKE '%{$sort}%' ORDER BY category ASC";
+			}
+			else {
+				$sql = "SELECT * FROM ".self::$table_name." ORDER BY category ASC";
+			}
+			if($per_page > 0){
+			    $sql .= " LIMIT {$per_page} OFFSET {$offset}";
+			}
+			return self::find_by_sql($sql);
+		}
 		
 		public static function find_by_category_string($string){
 		    return self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE category_string='{$string}'");
@@ -127,6 +140,14 @@
 		public static function count_all() {
 			global $database;
 			$sql = "SELECT COUNT(*) FROM ".self::$table_name;
+			$result_set = $database->query($sql);
+			$row = $database->fetch_array($result_set);
+			return array_shift($row);
+		}
+
+		public static function count_active_search($sort = "") {
+			global $database;
+			$sql = "SELECT COUNT(*) FROM ".self::$table_name."WHERE category LIKE '%{$sort}%";
 			$result_set = $database->query($sql);
 			$row = $database->fetch_array($result_set);
 			return array_shift($row);

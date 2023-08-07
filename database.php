@@ -6,6 +6,7 @@
 		public $lastquery;
 		private $magic_quotes_active;
 		private $real_escape_string_exists;
+		public $DB_NAME = DB_NAME;
 		
 		function __construct() {
 			$this->open_connection();

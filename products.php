@@ -113,9 +113,15 @@
 			return self::find_by_sql($sql);
 		}
 
-		public static function find_active_products($per_page=0, $offset=0) {
+		public static function find_active_products($per_page=0, $offset=0, $search="") {
 			global $database;
-			$sql = "SELECT * FROM ".self::$table_name." WHERE product_status=1 ORDER BY created_at ASC";
+			if($search != ""){	
+				$sql = "SELECT * FROM ".self::$table_name." WHERE product_status=1 AND product_name LIKE '%{$search}%' OR product_description LIKE '%{$search}%' OR product_color LIKE '%{$search}%' OR product_safety_tip LIKE '%{$search}%' OR product_price LIKE '%{$search}%' ORDER BY created_at ASC";
+			}
+			else {
+				$sql = "SELECT * FROM ".self::$table_name." WHERE product_status=1 ORDER BY created_at ASC";
+			}
+			// $sql = "SELECT * FROM ".self::$table_name." WHERE product_status=1 ORDER BY created_at ASC";
 			if($per_page > 0){
 			    $sql .= " LIMIT {$per_page} OFFSET {$offset}";
 			}
