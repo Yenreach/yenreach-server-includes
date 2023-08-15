@@ -172,9 +172,9 @@
 		    return self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE reg_stage=4 AND state='{$state}' AND activation=1 ORDER BY created ASC");
 		}
 
-		public static function find_approved_business_paginated($per_page=20, $offset=0) {
+		public static function find_approved_business_paginated($per_page=20, $offset=0, $sort="") {
 			global $database;
-			$sql = "SELECT * FROM ".self::$table_name." WHERE reg_stage=4 AND activation=1 ";
+			$sql = "SELECT * FROM ".self::$table_name." WHERE reg_stage=4 AND activation=1 AND category LIKE '%{$sort}%'";
 			$sql .= "LIMIT {$per_page} ";
 			$sql .= "OFFSET {$offset}";
 			$result_array = self::find_by_sql($sql);
@@ -271,4 +271,3 @@
 			return ($database->affected_rows() == 1) ? true : false;
 		}
     }
-?>
